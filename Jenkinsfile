@@ -15,7 +15,7 @@ pipeline {
         }
         stage('Clang') {
             steps {
-                sh 'clang-tidy src/ -- -std=c++11'
+                sh 'clang-tidy src/* -- -std=c++11'
             }
         }
         stage('Test') {
