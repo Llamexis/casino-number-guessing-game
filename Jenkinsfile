@@ -8,6 +8,16 @@ pipeline {
                 sh 'cmake --build build'
             }
         }
+        stage('Cppcheck') {
+            steps {
+                sh 'cppcheck . --enable=all --suppress=missingIncludeSystem'
+            }
+        }
+        stage('Clang') {
+            steps {
+                sh 'clang-tidy src/ -- -std=c++11'
+            }
+        }
         stage('Test') {
             steps {
                 sh './build/casino_game'
