@@ -8,6 +8,13 @@ pipeline {
                 sh 'cmake --build build'
             }
         }
+        
+        stage('Test') {
+            steps {
+                sh './build/casino_game'
+                sh './build/test_game'
+            }
+        }
         stage('Cppcheck') {
             steps {
                 sh 'cppcheck . --enable=all --suppress=missingIncludeSystem'
@@ -16,12 +23,6 @@ pipeline {
         stage('Clang') {
             steps {
                 sh 'clang-tidy src/* -- -std=c++11'
-            }
-        }
-        stage('Test') {
-            steps {
-                sh './build/casino_game'
-                sh './build/test_game'
             }
         }
         stage('Deliver') {
